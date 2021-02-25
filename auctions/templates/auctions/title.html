@@ -1,0 +1,60 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <section class="jumbotron text-center">
+        <div class="container">
+          <h1>{{ listing.title }}</h1>
+          <p>
+            {% if listing.image %}
+            <img src="{{ listing.image }}" width="40%" height="40%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
+            {% else %}
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="40%" y="50%" fill="#eceeef">No Photo</text></svg>
+            {% endif %}
+          </p>
+          <p class="lead text-muted">{{ listing.description }}</p>
+          <p> {{ category }}</p>
+          <p>
+              <strong>Starting Bid: ${{ listing.starting_bid }}</strong>
+          </p>
+        </div>
+      
+      <div>
+        <h3 style="padding-top: 30px;">Comments</h3>
+        <form action="{% url 'listing_page' listing.title %}" method="POST">
+          <p>
+          {% csrf_token %}
+          {{ form.comment }}
+          </p>
+        <input type="submit" value="Save">
+        </form>
+        </p>
+      </div>
+
+      <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0"></h6>
+        {% if comment_list %}
+          {% for n in comment_list %}
+          <div class="media text-muted pt-3">
+            <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+              <div class="d-flex justify-content-between align-items-center w-100">
+                <strong class="text-gray-dark">{{ n.user }}</strong>
+                <small>{{ n.timestamp }}</small>
+              </div>
+              <span class="d-block">{{ n.comment }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+        <div class="media text-muted pt-3">
+          <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <strong class="text-gray-dark"></strong>
+            </div>
+            <span class="d-block">No Comments</span>
+          </div>
+        </div>
+        {% endif %}
+
+      </section>
+{% endblock %}

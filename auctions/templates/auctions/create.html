@@ -1,0 +1,51 @@
+{% extends "auctions/layout.html" %}
+
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <div>
+            <h2>Create Listing</h2>
+        </div>
+        <div>
+            <div>
+                <form action="{% url 'create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label>Title</label>
+                        <p>
+                        {{ form.title }}
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Starting Bid</label>
+                        <p>
+                        {{ form.starting_bid }}
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Image URL</label>
+                        <p>
+                        {{ form.image }}
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description</label>
+                        <p>
+                        {{ form.description }}
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <p>
+                        {{ form.category }}
+                        </p>
+                    </div> 
+                    <input type="submit" value="Create Listing">
+                </form>                      
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

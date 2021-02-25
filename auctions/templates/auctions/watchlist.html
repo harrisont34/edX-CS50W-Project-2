@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+        
+            {% for list in watch_list %}
+                <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+
+                    {% if list.item_id.image %}
+                    <img src="{{ list.item_id.image }}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
+                    {% else %}
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="40%" y="50%" fill="#eceeef">No Photo</text></svg>
+                    {% endif %}
+
+                    <div class="card-body">
+                    <strong class="card-text">{{ list.item_id.title }}</strong>
+                    <p class="card-text">{{ list.item_id.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{% url 'listing_page' list.item_id.title %}';">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{% url 'bid' list.item_id.title %}';">Bid</button>
+                        </div>
+                        <small class="text-muted">${{ list.item_id.starting_bid }}</small>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

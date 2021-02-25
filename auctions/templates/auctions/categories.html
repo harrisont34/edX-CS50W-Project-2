@@ -1,0 +1,15 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <ul>
+                {% for item in listing %}
+                <p><a href="{% url 'category_list' item.0 %}">{{ item.1 }}</a></p>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock %}

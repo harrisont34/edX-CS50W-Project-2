@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+        
+            {% for item in listings %}
+                <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+
+                    {% if item.image %}
+                    <img src="{{ item.image }}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
+                    {% else %}
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="40%" y="50%" fill="#eceeef">No Photo</text></svg>
+                    {% endif %}
+
+                    <div class="card-body">
+                    <strong class="card-text">{{ item.title }}</strong>
+                    <p class="card-text">{{ item.description }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{% url 'listing_page' item.title %}';">View</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{% url 'bid' item.title %}';">Bid</button>
+                        {% if item.id in watch_list %}
+                            <button type="button" class="btn btn-sm btn-outline-secondary"onclick="window.location.href='{% url 'del_watchlist' item.id  %}';">Remove from Watchlist</button>
+                        {% else %}
+                            <button type="button" class="btn btn-sm btn-outline-secondary"onclick="window.location.href='{% url 'add_watchlist' item.id  %}';">Add to Watchlist</button>
+                        {% endif %}
+                        </div>
+                        <small class="text-muted">${{ item.starting_bid }}</small>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
